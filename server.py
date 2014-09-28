@@ -10,10 +10,6 @@ valThread = None
 def index():
 	return static_file('index.html', root='./')
 
-@route('/hello/<name>')
-def index(name):
-    return template('<b>Hello {{name}}</b>!', name=name)
-
 @route('/request', method='GET')
 def index():
 	prefix = request.query.prefix
@@ -41,9 +37,6 @@ class Validator(threading.Thread):
 		one_line_output = Validator.p.stdout.readline()
 
 		return one_line_output
-
-		#string = prefix + "/" + length + " " + asn + " validated"
-		#return string
 
 
 valThread = Validator()
