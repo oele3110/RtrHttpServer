@@ -31,7 +31,7 @@ class Validator(threading.Thread):
 	def __init__(self):
 		threading.Thread.__init__(self)
 		print "start validator"
-		Validator.p = Popen(['/home/skims/git/rtrHttpServer/validator', 'rpki-validator.realmv6.org', '8282'], stdout=PIPE, stdin=PIPE, stderr=STDOUT)
+		Validator.p = Popen(['/home/skims/git/RtrHttpServer/validator', 'rpki-validator.realmv6.org', '8282'], stdout=PIPE, stdin=PIPE, stderr=STDOUT)
 		print "validator started"
 
 	def validatePrefix(sefl, prefix, length, asn):
