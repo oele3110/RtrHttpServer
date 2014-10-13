@@ -1,11 +1,43 @@
 <html>
 <head>
-<title>Test</title>
+<title>RPKI Validator</title>
 </head>
 <body>
-<h1>Test Server</h1>
+<h1>RPKI Validator</h1>
 <p>
-This is only a test
+This ist an HTTP RPKI Validator<br />
+
+<h2>Usage</h2>
+
+To make a request go to<br /><br />
+
+http://host/request?prefix=[IP-PREFIX]&length=[LENGTH]&asn=[ASN]<br /><br />
+
+example:<br /><br />
+
+http://tanger.imp.fu-berlin.de:5003/request?prefix=103.10.232.0&length=24&asn=1280<br /><br />
+
+<h2>Return Value</h2>
+
+The Server returns a line constructred as follows<br />
+
+validity | prefix length asn [ | roa-asn roa-prefix roa-minlenght roa max-lenght, ... ]
+
+<h3>unknown:</h3>
+
+-1|103.10.141.0 22 32590
+
+<h3>invalid:</h3>
+
+0|103.10.232.0 24 1285|1283 103.10.232.0 24 24,1280 103.10.232.0 24 24,1281 103.10.232.0 24 24
+
+<h3>valid</h3>
+
+1|103.10.232.0 24 1280|1283 103.10.232.0 24 24,1280 103.10.232.0 24 24,1281 103.10.232.0 24 24
+
+
 </p>
+
+
 </body>
 </html>
