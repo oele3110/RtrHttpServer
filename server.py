@@ -1,5 +1,6 @@
 from bottle import redirect, request, route, run, static_file, template
 from subprocess import Popen, PIPE, STDOUT
+import sys
 
 import threading
 
@@ -39,7 +40,19 @@ class Validator(threading.Thread):
 		return one_line_output
 
 
-valThread = Validator()
-valThread.start()
+host = ""
+port = 0
 
-run(host='0.0.0.0', port=5003)
+if len(sys.argv) < 5:
+	print "wrong usage, use:\npython server.py -h host -p port"
+else:
+	for i in range(1, len(sys.argv)):
+		if(sys.argv[i] == "-h"):
+			host = sys.argv[i+1]
+		if(sys.argv[i] == "-p"):
+			port = int(sys.argv[i+1])
+
+	valThread = Validator()
+	valThread.start()
+
+	run(host=host, port=port)

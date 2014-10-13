@@ -16,6 +16,12 @@ You need to install the C RTRLib http://rpki.realmv6.org/
 
 ## Usage
 
+### Run
+
+<pre>python server.py -h host -p port</pre>
+
+### Request
+
 To make a request go to
 
 http://host/request?prefix=[IP-PREFIX]&length=[LENGTH]&asn=[ASN]
