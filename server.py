@@ -17,8 +17,9 @@ def index():
 	length = request.query.length
 	asn = request.query.asn
 
+	# after getting prefix, length, asn via http get validate prefix
 	val = valThread.validatePrefix(prefix, length, asn)
-
+	# return validated line to template
 	return template('{{val}}', val=val)
 
 class Validator(threading.Thread):
@@ -32,17 +33,18 @@ class Validator(threading.Thread):
 		print "validator started"
 
 	def validatePrefix(sefl, prefix, length, asn):
-
+		# print correct snytax to stdin
 		Validator.p.stdin.write(prefix + " " + length + " " + asn + "\n")
-
+		# get result from validator
 		one_line_output = Validator.p.stdout.readline()
-
+		# return line to http server
 		return one_line_output
 
 
 host = ""
 port = 0
 
+# start routine
 if len(sys.argv) < 5:
 	print "wrong usage, use:\npython server.py -h host -p port"
 else:
@@ -52,7 +54,9 @@ else:
 		if(sys.argv[i] == "-p"):
 			port = int(sys.argv[i+1])
 
+	# start new validator thread
 	valThread = Validator()
 	valThread.start()
-
+	
+	# run bottle http server
 	run(host=host, port=port)
